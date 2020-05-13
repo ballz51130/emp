@@ -1,7 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
@@ -13,19 +14,48 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+               @guest
+
+               @else
+                    @if(Auth::user()->type == 1)
+                    <a class="navbar-brand ml-3" href="{{ url('admin/dashboard') }}">
+                    หน้าแรก
                 </a>
+                <div class="dropdown">
+  <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    จัดการ
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="{{ url('admin/manageuser') }}">ข้อมูลสมาชิก</a>
+    <a class="dropdown-item" href="#"> ข้อมูลแผนก</a>
+    <a class="dropdown-item" href="#">จัดการข้อมูลตำแหน่งงาน</a>
+  </div>
+</div>
+                <a class="navbar-brand ml-3" href="{{ url('admin\export') }}">
+                Report
+                </a>
+                    @else
+                    <a class="navbar-brand ml-3" href="{{ url('/home') }}">
+                    หน้าแรก
+                </a>
+                <a class="navbar-brand ml-3" href="{{ url('/profile') }}">
+                   Profile
+                </a>
+                <a class="navbar-brand ml-3" href="{{ url('/leave') }}">
+               การลา
+                </a>
+                    @endif
+               @endguest
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -43,12 +73,8 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -75,6 +101,19 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <!-- alert -->
+        @if(session()->has('jsAlert'))
+    <script>
+        alert("{{ session()->get('jsAlert') }}");
+    </script>
+    @endif
+    <script>
+        $('.form-group row').change(function(){
+            $(this).find('.is-invalid').removeClass('is-invalid');
+            $(this).find('message').remove();
+        });
+
+    </script>
     </div>
 </body>
 </html>

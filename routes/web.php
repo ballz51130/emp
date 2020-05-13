@@ -29,5 +29,11 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['prefix' => 'admin'], function(){
     Route::group(['middleware' => ['admin']], function(){
         Route::get('/mainadmin', 'admin\AdminController@index');
+        Route::resource('/manageuser', 'admin\ManageUserController');
+        Route::get('/manageuser', 'admin\ManageUserController@index');
+        Route::get('/manageuser/{id}/edit', 'admin\ManageUserController@edit');
+        Route::get('/manageuser/{id}/delete', 'admin\ManageUserController@delete');
+        
     });
+
 });

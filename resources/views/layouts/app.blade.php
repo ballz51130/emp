@@ -40,7 +40,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="{{ url('admin/manageuser') }}"> พนักงาน </a>
                         <a class="dropdown-item" href="{{ url('admin/manageposition') }}"> ตำแหน่งาน</a>
-                        <a class="dropdown-item" href="{{ url('admin/manageuser') }}">ฝ่าย / แผนก</a>
+                        <a class="dropdown-item" href="{{ url('admin/managedepartment') }}">ฝ่าย / แผนก</a>
                     </div>
                 </div>
                 <a class="navbar-brand ml-3" href="{{ url('admin\export') }}">

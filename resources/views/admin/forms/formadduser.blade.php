@@ -142,8 +142,17 @@
                                 @endif
                             </div>
                         </div>
-
+                        @if(!empty($data->password))
                         <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">รหัสผ่าน</label>
+
+                       <div class="col-md-6">
+                       <a href="{{ action('admin\changepasswordsController@edit', $data->id) }}" class="btn btn-primary">เปลียนรหัสผ่าน</a>
+                        </div>
+                        </div>
+                        
+                         @else
+                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">รหัสผ่าน</label>
 
                             <div class="col-md-6">
@@ -154,6 +163,8 @@
                                 @endif
                             </div>
                         </div>
+                                @endif
+                        
 
                         <div class="form-group row">
                             <label for="profile" class="col-md-4 col-form-label text-md-right">{{ __('รูป') }}</label>

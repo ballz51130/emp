@@ -26,7 +26,7 @@ class HomeController extends Controller
     if(auth()->user()->isAdmin()) {
         return view('admin/mainadmin');
     } else {
-        return view('home');
+        return view('user/mainuser');
     }
 }
 }

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-  <h3 class="text-center">จัดการข้อมูลพนักงาน</h3>
+  <h3 class="text-center">จัดการข้อมูล ฝ่าย/แผนก</h3>
   <div class="clearfix mb-2">
     <div class="float-left">
            <!-- <form method="GET" class="form-inline">
@@ -14,13 +14,13 @@
               <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> ค้นหา</button>
             </form> -->
         </div>
-   <a href="{{ url('admin/manageposition/create') }}" class="btn btn-success float-right"><i class="fa fa-plus"></i> เพิ่มข้อมูลตำแหน่งงาน</a>
+   <a href="{{ url('admin/managedepartment/create') }}" class="btn btn-success float-right"><i class="fa fa-plus"></i> เพิ่มข้อมูลฝ่าย/แผนก</a>
 </div>
   <table class="table table-striped">
   <thead class="text-center">
     <tr>
       <th scope="col">ลำดับ</th>
-      <th scope="col">ตำแหน่งงาน</th>
+      <th scope="col">ฝ่าย/แผนก</th>
       <th scope="col">จัดการ</th>
     </tr>
   </thead>
@@ -30,8 +30,8 @@
       <th class="text-center">{{$loop->iteration }}</th>
       <td class="text-center">{{ $value->name}}</td>
       <td class="text-center">
-      <a href="{{ action('admin\positionController@edit', $value->id) }}"class="btn btn-secondary">แก้ไข</a>
-      <a href="{{ action('admin\positionController@delete', $value->id) }}" onclick="return confirm('ลบ ?')" class="btn btn-danger"><i class="fa fa-trash"></i> ลบ</a>
+      <a href="{{ action('admin\departmentController@edit', $value->id) }}"class="btn btn-secondary">แก้ไข</a>
+      <a href="{{ action('admin\departmentController@delete', $value->id) }}" onclick="return confirm('ลบ ?')" class="btn btn-danger"><i class="fa fa-trash"></i> ลบ</a>
       </td>
     </tr>
     @endforeach

@@ -1,32 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\departmentModel AS DM;
+use App\Models\userModel AS UM;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-class departmentController extends Controller
+class changepasswordController extends Controller
 {
-   /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     protected $cValidator = [
-        'name' => 'required|min:3|max:255',
+        'password' => 'required|min:5',
+        'confpassword' => 'required|same:password',
       ];
     
       protected $cValidatorMsg = [
-        'name.required' => 'กรุณากรอกตำแหน่งงาน',
-        'name.min' => 'ตำแหน่งงานต้องมีอย่างน้อย 3 ตัวอักษร',
-        'name.max' => 'ตำแหน่งงานต้องมีไม่เกิน 255 ตัวอักษร',
+        'password.required' => 'กรุณากรอกรหัสผ่าน',
+        'password.min' => 'รหัสผ่านต้องมีอย่างน้อย 5 ตัวอักษร',
+        'confpassword.required' => 'กรุณายืนยันรหัสผ่าน',
+        'confpassword.same' => 'รหัสผ่านไม่ตรงกัน',
+
       ];
+
     public function index()
     {
         //
-        $data = DM::get();
-        return view('admin/managedepartment')->with( ["data"=>$data] );
+        return view('user/forms.formchangepassword');
     }
 
     /**
@@ -37,7 +42,6 @@ class departmentController extends Controller
     public function create()
     {
         //
-        return view('admin/forms.formdepartment');
     }
 
     /**
@@ -49,18 +53,6 @@ class departmentController extends Controller
     public function store(Request $request)
     {
         //
-        $validator = Validator::make( $request->all(), $this->cValidator, $this->cValidatorMsg);
-        if( $validator->fails() ){
-            return back()->withInput()->withErrors( $validator->errors() );
-          }
-          else{
-          $data = new DM;
-          $data->fill([
-            "name" =>$request->name,
-          ]);
-          $data->save();
-          return redirect()->route('managedepartment.store')->with('jsAlert', 'เพิ่มข้อมูลสำเร็จ');
-        }
     }
 
     /**
@@ -83,13 +75,12 @@ class departmentController extends Controller
     public function edit($id)
     {
         //
-        $data = DM::findOrFail( $id );
+        $data = UM::findOrFail( $id );
         if( is_null($data) ){
           return back()->with('jsAlert', "ไม่พบข้อมูลที่ต้องการแก้ไข");
       }
-      return view('admin/forms.formdepartment')->with(['data'=>$data]);
-      
-    }
+      return view('user/forms.formchangepassword')->with(['data'=>$data,]);
+      }
 
     /**
      * Update the specified resource in storage.
@@ -100,35 +91,25 @@ class departmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
         $validator = Validator::make( $request->all(), $this->cValidator, $this->cValidatorMsg);
         if( $validator->fails() ){
               return back()->withInput()->withErrors( $validator->errors() );
           }
           else{
-        $data = DM::findOrFail( $id );
+        $data = UM::findOrFail( $id );
         if( is_null($data) ){
           return back()->with('jsAlert', "ไม่พบข้อมูลที่ต้องการแก้ไข");
               }
               $data->fill([
-                "name" =>$request->name,
+                "password" => Hash::make($request->password),
               ]);
-        
                 $data->update();
-                return redirect()->route('managedepartment.store')->with('jsAlert', 'แก้ไขข้อมูลสำเร็จ');
+              }
+              return redirect()->route('manageuser.index')->with('jsAlert', 'แก้ไขรหัสผ่านสำเร็จ');
               
-          }
     }
-    public function delete($id)
-    {
-        //
-        $data = DM::findOrFail($id);
-      if( is_null($data) ){
-        return back()->with('jsAlert', "ไม่พบข้อมูลที่ต้องการแก้ไข");
-    }
-    $data->delete();
-    return back()->with('jsAlert', "ลบข้อมูลสำเร็จ");
-  }
+
     /**
      * Remove the specified resource from storage.
      *

@@ -8,6 +8,6 @@ class positionModel extends Model
 {
     //
     protected $table ="position";
-    protected $fillable =["name"];
+    protected $fillable =["name",];
     public $pimarykey="id";
 }

@@ -33,6 +33,10 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/manageuser', 'admin\ManageUserController@index');
         Route::get('/manageuser/{id}/edit', 'admin\ManageUserController@edit');
         Route::get('/manageuser/{id}/delete', 'admin\ManageUserController@delete');
+        Route::resource('/manageposition', 'admin\positionController');
+        Route::get('/manageposition', 'admin\positionController@index');
+        Route::get('/manageposition/{id}/edit', 'admin\positionController@edit');
+        Route::get('/manageposition/{id}/delete', 'admin\positionController@delete');
         
     });
 

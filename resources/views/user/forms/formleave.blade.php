@@ -111,14 +111,14 @@
                                     <div class="form-group">
                                         <label for="date">การลา*</label>
                                         <select class="form-control {{ !empty( $errors->first('vacation')) ? 'is-invalid' : '' }}" name="vacation" id="vacation">
-                            @if(!empty($data->perfix))
+                            @if(!empty($data->vacation))
                             <option value="" class="form-control">-เลือกหมายเหตุการลา-</option>
                             @else
                             <option value="{{ !empty($data->vacation) ? $data->vacation: old('vacation') }}" class="form-control">{{ !empty($data->vacation) ? $data->vacation: old('vacation') }}</option>
                             @endif
-                                    <option value="นาย" @if( old ('vacation')=='นาย') selected="selected" @endif>นาย</option>
-                                    <option value="นาง" @if (old('vacation') == 'นาง') selected="selected" @endif>นาง</option>
-                                    <option value="นางสาว" @if (old('vacation') == 'นางสาว') selected="selected" @endif>นางสาว</option>
+                                    <option value="ลาป่วย" @if( old ('vacation')=='ลาป่วย') selected="selected" @endif>ลาป่วย</option>
+                                    <option value="ลากิจ" @if (old('vacation') == 'ลากิจ') selected="selected" @endif>ลากิจ</option>
+                                    <option value="อื่นๆ" @if (old('vacation') == 'อื่นๆ') selected="selected" @endif>อื่นๆ</option>
                                 </select>
                                         
                                         @if(!empty( $errors->first('vacation')))

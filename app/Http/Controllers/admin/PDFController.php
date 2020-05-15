@@ -1,85 +1,48 @@
 <?php
 
 namespace App\Http\Controllers\admin;
-
-use App\Http\Controllers\Controller;
+use PDF;
+use DB;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PDFController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    function index()
     {
-        //
+        $customer_data = DB::table('leave')
+        ->select("users.id as userid" ,"users.prefix","users.name as username","lastname" , "position.name AS position" , 
+        "department.name as department", "leave.vacation" ,"leave.indate" ,"leave.todate", 
+        DB::raw('sum(alltime) as alltimes'), 
+        DB::raw('sum(CASE WHEN vacation = "ลาป่วย" THEN alltime ELSE 0 END) AS vacation1 '),
+        DB::raw('sum(CASE WHEN vacation = "ลากิจ" THEN alltime ELSE 0 END) AS vacation2 '),
+        DB::raw('sum(CASE WHEN vacation = "อื่นๆ" THEN alltime ELSE 0 END) AS vacation3 '),)
+        ->leftjoin('users',"users.id","=","leave.U_id")
+        ->leftjoin('department',"department.id","=","users.department")
+        ->leftjoin('position',"position.id","=","users.position")
+        ->where('leave.status',"=","อนุมัติการลา")
+        ->groupBy(['U_id',])
+        ->get();
+     return view('admin\export')->with(['customer_data'=> $customer_data]);
+     
+    }
+    function pdf()
+    {
+        $customer_data = DB::table('leave')
+        ->select("users.id as userid" ,"users.prefix","users.name as username","lastname" , "position.name AS position" , 
+        "department.name as department", "leave.vacation" ,"leave.indate" ,"leave.todate", 
+        DB::raw('sum(alltime) as alltimes'), 
+        DB::raw('sum(CASE WHEN vacation = "ลาป่วย" THEN alltime ELSE 0 END) AS vacation1 '),
+        DB::raw('sum(CASE WHEN vacation = "ลากิจ" THEN alltime ELSE 0 END) AS vacation2 '),
+        DB::raw('sum(CASE WHEN vacation = "อื่นๆ" THEN alltime ELSE 0 END) AS vacation3 '),)
+        ->leftjoin('users',"users.id","=","leave.U_id")
+        ->leftjoin('department',"department.id","=","users.department")
+        ->leftjoin('position',"position.id","=","users.position")
+        ->where('leave.status',"=","อนุมัติการลา")
+        ->groupBy(['U_id',])
+        ->get();
+     $pdf = PDF::loadView('pdf',['customer_data'=>$customer_data]);
+     return @$pdf->stream();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

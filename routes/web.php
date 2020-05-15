@@ -40,32 +40,45 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 
-
 //Route for admin
 Route::group(['prefix' => 'admin'], function(){
     Route::group(['middleware' => ['admin']], function(){
         Route::get('/mainadmin', 'admin\AdminController@index');
+
         // mamage User
         Route::resource('/manageuser', 'admin\ManageUserController');
         Route::get('/manageuser', 'admin\ManageUserController@index');
         Route::get('/manageuser/{id}/edit', 'admin\ManageUserController@edit');
         Route::get('/manageuser/{id}/delete', 'admin\ManageUserController@delete');
+
         // change password
         Route::resource('/changepasswords', 'admin\changepasswordsController');
         Route::get('/changepasswords', 'admin\changepasswordsController@index');
         Route::get('/changepasswords/{id}/edit', 'admin\changepasswordsController@edit');
         Route::get('/changepasswords/{id}/delete', 'admin\changepasswordsController@delete');
+
         // mamage position
         Route::resource('/manageposition', 'admin\positionController');
         Route::get('/manageposition', 'admin\positionController@index');
         Route::get('/manageposition/{id}/edit', 'admin\positionController@edit');
         Route::get('/manageposition/{id}/delete', 'admin\positionController@delete');
+
         // mamage department
         Route::resource('/managedepartment', 'admin\departmentController');
         Route::get('/managedepartment', 'admin\departmentController@index');
         Route::get('/managedepartment/{id}/edit', 'admin\departmentController@edit');
         Route::get('/managedepartment/{id}/delete', 'admin\departmentController@delete');
- 
+
+        // Approve leave
+        Route::resource('/mainadmin', 'admin\adminController');
+        Route::get('/mainadmin/{id}/edit','admin\adminController@edit');
+        
+        // Export
+        Route::get('/export/excel', 'admin\adminController@export'); 
+        Route::get('/export', 'admin\PDFController@index'); 
+        Route::get('/export/pdf', 'admin\PDFController@pdf');
+        
+        
     });
 
 });

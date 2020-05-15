@@ -31,7 +31,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="form_email">เรี่องขอลา *</label>
-                                    <input type="text" name="Title" class="form-control" value="{{$value->Title}}">
+                                    <input type="text" name="title" class="form-control" value="{{$value->title}}">
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                 <div class="form-group">
                                     <label for="date">การลา*</label>
                                     <input type="text" class="form-control" name="etc"
-                                        value="{{$value->vacation_Name}}">
+                                        value="{{$value->vacation}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -116,7 +116,7 @@
                                 <div class="form-group">
                                     <label for="since">ตั้งแต่วันที่ *</label>
                                     <input id="since" type="date" class="form-control" name="since"
-                                        value="{{$value->since}}">
+                                        value="{{$value->indate}}">
 
                                 </div>
                             </div>
@@ -186,32 +186,30 @@
                                                
                                                 <tr>
                                                     <th scope="row">ลาป่วย</th>
-                                                  
-                                                    <td>@if($c->vacation_Name == 'ลาป่วย') {{$c->total}}  @endif</td>
-                                                    <td> @if($value->vacation_Name == 'ลาป่วย'){{$value->alltime}}   @endif</td>
-                                                    <td>@if(($c->vacation_Name == 'ลาป่วย')&&($value->vacation_Name == 'ลาป่วย')) 
+                                                    <td>@if($c->vacation == 'ลาป่วย') {{$c->total}}  @endif</td>
+                                                    <td> @if($value->vacation == 'ลาป่วย'){{$value->alltime}}   @endif</td>
+                                                    <td>@if(($c->vacation == 'ลาป่วย')&&($value->vacation == 'ลาป่วย')) 
                                                     {{$c->total+$value->alltime}} @else
-                                                     @if($c->vacation_Name == 'ลาป่วย')
+                                                     @if($c->vacation == 'ลาป่วย')
                                                      {{$c->total}}  
                                                     @endif
-                                                    @if($value->vacation_Name == 'ลาป่วย')
+                                                    @if($value->vacation == 'ลาป่วย')
                                                     {{$value->alltime}} 
                                                     @endif
                                                     @endif
                                                    </td>
                                                   
-                                                   
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">ลากิจ</th>
-                                                    <td>@if($c->vacation_Name == 'ลากิจ') {{$c->total}}  @endif</td>
-                                                    <td> @if($value->vacation_Name == 'ลากิจ'){{$value->alltime}}   @endif</td>
-                                                    <td>@if(($c->vacation_Name == 'ลากิจ')&&($value->vacation_Name == 'ลากิจ')) 
+                                                    <td>@if($c->vacation == 'ลากิจ') {{$c->total}}  @endif</td>
+                                                    <td> @if($value->vacation == 'ลากิจ'){{$value->alltime}}   @endif</td>
+                                                    <td>@if(($c->vacation == 'ลากิจ')&&($value->vacation == 'ลากิจ')) 
                                                     {{$c->total+$value->alltime}}   @else
-                                                     @if($c->vacation_Name == 'ลากิจ')
+                                                     @if($c->vacation == 'ลากิจ')
                                                      {{$c->total}}  
                                                     @endif
-                                                    @if($value->vacation_Name == 'ลากิจ')
+                                                    @if($value->vacation == 'ลากิจ')
                                                     {{$value->alltime}} 
                                                     @endif
                                                     @endif
@@ -219,14 +217,14 @@
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">อื่นๆ</th>
-                                                    <td>@if($c->vacation_Name == 'อื่นๆ') {{$c->total}}   @endif</td>
-                                                    <td> @if($value->vacation_Name == 'อื่นๆ'){{$value->alltime}}   @endif</td>
-                                                    <td>@if(($c->vacation_Name == 'อื่นๆ')&&($value->vacation_Name == 'อื่นๆ')) 
+                                                    <td>@if($c->vacation == 'อื่นๆ') {{$c->total}}   @endif</td>
+                                                    <td> @if($value->vacation == 'อื่นๆ'){{$value->alltime}}   @endif</td>
+                                                    <td>@if(($c->vacation == 'อื่นๆ')&&($value->vacation == 'อื่นๆ')) 
                                                     {{$c->total+$value->alltime}} @else
-                                                     @if($c->vacation_Name == 'อื่นๆ')
+                                                     @if($c->vacation == 'อื่นๆ')
                                                      {{$c->total}}  
                                                     @endif
-                                                    @if($value->vacation_Name == 'อื่นๆ')
+                                                    @if($value->vacation == 'อื่นๆ')
                                                     {{$value->alltime}} 
                                                     @endif
                                                     @endif
@@ -241,16 +239,16 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="form_need">รูปหลักฐาน</label>
-                                        @if(!empty($value->profile))
+                                        @if(!empty($value->image))
                                         <div class="text-center">
                                             <img src="{{asset('storage/'.$value->image)}}" width="200px" height="200px">
                                         </div>
                                         @else
                                         <div class="text-center">
-                                            <img src="{{asset('storage/photos/Noimg.jpg')}}" width="200px"
-                                                height="200px">
+                                            <img src="{{asset('storage/photos/No_Image.png')}}" width="80px" height="80px">
+                                            </div>
                                             @endif
-                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -266,12 +264,11 @@
                                         <select
                                             class="form-control {{ !empty( $errors->first('status')) ? 'is-invalid' : '' }}"
                                             name="status" id="status">
-                                            <option value="" class="form-control">-เลือกคำนำหน้า-</option>
-                                            <option value="อนุมัดติการลา">อนุมัดติการลา</option>
-                                            <option value="ไม่อนุมัดติการลา">ไม่อนุมัดติการลา</option>
+                                            <option value="" class="form-control">-เลือก-</option>
+                                            <option value="อนุมัติการลา">อนุมัติการลา</option>
+                                            <option value="ไม่อนุมัติการลา">ไม่อนุมัติการลา</option>
                                         </select>
                                         @if (!empty($errors->first('status')))
-
                                         <message class="text-danger">{{ $errors->first('status') }}</massage>
                                             @endif
                                     </div>
@@ -281,8 +278,7 @@
                                     <button type="submit" class="btn btn-primary"
                                         class="btn btn-success btn-send">บันทึก</button>
                                 </div>
-                                <div class="form-group col-md-12" style="margin-left:270px;">
-                                </div>
+                               
                                 @endforeach
                             </form>
                         </div>

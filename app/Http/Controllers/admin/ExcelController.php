@@ -4,7 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use DB;
+use Excel;
 class ExcelController extends Controller
 {
     /**
@@ -15,17 +16,24 @@ class ExcelController extends Controller
     public function index()
     {
         //
+        {
+            $customer_data = DB::table('leave')->get();
+            return view('admin\export_excel')->with('customer_data', $customer_data);
+           }
+        
     }
+    public function excel()
+    {
+        return Excel::download(new InvoicesExport, 'invoices.xlsx');
+    }
+
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    
 
     /**
      * Store a newly created resource in storage.

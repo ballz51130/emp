@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use DB;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -40,14 +40,7 @@ class LoginController extends Controller
     protected function redirectTo()
 {
     if(auth()->user()->isAdmin()) {
-        $data = DB::table('leave')
-        ->select("*","leave.id as id","users.name as username","department.name as departmentname","position.name as positionname",)
-        ->leftjoin('users',"users.id","=","leave.U_id")
-        ->leftjoin('department',"department.id","=","users.department")
-        ->leftjoin('position',"position.id","=","users.position")
-        ->where('status',"=",'รออนุมัติ')
-        ->get();
-        return view('admin/mainadmin')->with( ["data"=>$data] );
+        return '/admin/dashboard';
     } else {
         return '/home';
     }

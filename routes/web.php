@@ -44,7 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['prefix' => 'admin'], function(){
     Route::group(['middleware' => ['admin']], function(){
         Route::get('/mainadmin', 'admin\AdminController@index');
-
+        Route::get('/dashboard', 'admin\AdminController@index');
         // mamage User
         Route::resource('/manageuser', 'admin\ManageUserController');
         Route::get('/manageuser', 'admin\ManageUserController@index');

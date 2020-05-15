@@ -25,6 +25,13 @@ class ManageUserController extends Controller
         'department' => 'required',
         'password' => 'required|min:5',
       ];
+      protected $cValidator2 = [
+        'name' => 'required|min:3|max:255',
+        'lastname' => 'required|min:3|max:255',
+        'prefix' => 'required|min:2',
+        'position' => 'required',
+        'department' => 'required',
+      ];
     
       protected $cValidatorMsg = [
         'prefix.required' => 'กรุณาเลือกคำนำหน้าชื่อ',
@@ -38,6 +45,17 @@ class ManageUserController extends Controller
         'department.required' => 'กรุณาเลือกฝ่าย /แผนก',
         'password.required' => 'กรุณากรอกรหัสผ่าน',
         'password.min' => 'รหัสผ่านต้องมีอย่างน้อย 5 ตัวอักษร'
+      ];
+      protected $cValidatorMsg2 = [
+        'prefix.required' => 'กรุณาเลือกคำนำหน้าชื่อ',
+        'name.required' => 'กรุณากรอกชื่อ',
+        'name.min' => 'ชื่อต้องมีอย่างน้อย 3 ตัวอักษร',
+        'name.max' => 'ชื่อต้องมีไม่เกิน 255 ตัวอักษร',
+        'lastname.required' => 'กรุณากรอกนามสกุล',
+        'lastname.min' => 'นามสกุลต้องมีอย่างน้อย 3 ตัวอักษร',
+        'lastname.max' => 'นามสกุลต้องมีไม่เกิน 255 ตัวอักษร',
+        'position.required' => 'กรุณาเลือกตำแหน่งงาน',
+        'department.required' => 'กรุณาเลือกฝ่าย /แผนก',
       ];
     public function index()
     {
@@ -147,7 +165,7 @@ class ManageUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make( $request->all(), $this->cValidator, $this->cValidatorMsg);
+        $validator = Validator::make( $request->all(), $this->cValidator2, $this->cValidatorMsg2);
         if( $validator->fails() ){
               return back()->withInput()->withErrors( $validator->errors() );
           }
@@ -159,7 +177,6 @@ class ManageUserController extends Controller
               $data->fill([
                 "name" =>$request->name,
                 "email" =>$request->email,
-                "password" => Hash::make($request->password),
                 "lastname" =>$request->lastname,
                 "position" =>$request->position,
                 "department"=>$request->department,

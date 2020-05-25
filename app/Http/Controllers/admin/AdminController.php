@@ -148,7 +148,7 @@ class admincontroller extends Controller
             ]);
               $data->update();
         }
-              return redirect()->to('admin\mainadmin')->with('jsAlert', 'ข้อมูลสำเร็จ');     
+              return redirect()->to('admin\mainadmin')->with('jsAlert', 'อัพเดดข้อมูลสำเร็จ');     
     }
 
 

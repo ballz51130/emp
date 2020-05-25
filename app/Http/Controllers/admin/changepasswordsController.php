@@ -106,7 +106,7 @@ class changepasswordsController extends Controller
               ]);
                 $data->update();
               }
-              return redirect()->route('manageuser.store')->with('jsAlert', 'แก้ไขรหัสผ่านลสำเร็จ');
+              return redirect()->route('manageuser.store')->with('jsAlert', 'แก้ไขรหัสผ่านสำเร็จ');
               
     }
 

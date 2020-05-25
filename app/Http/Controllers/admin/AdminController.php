@@ -86,24 +86,28 @@ class admincontroller extends Controller
         return back()->with('jsAlert', "ไม่พบข้อมูลที่ต้องการแก้ไข");
     }
     $data = DB::table('leave')
-        ->select("*","leave.id as id","users.name as username","department.name as departmentname","position.name as positionname","leave.image as photo",)
-        ->leftjoin('users',"users.id","=","leave.U_id")
-        ->leftjoin('department',"department.id","=","users.department")
-        ->leftjoin('position',"position.id","=","users.position")
-        ->where('leave.id',"=",$id)
-        ->get();
+    ->select("*","leave.id as id","users.name as username","department.name as departmentname","position.name as positionname","leave.image as photo",
+    DB::raw('sum(alltime) as alltimes'), 
+    DB::raw('sum(CASE WHEN vacation = "ลาป่วย" THEN alltime ELSE 0 END) AS vacation1 '),
+    DB::raw('sum(CASE WHEN vacation = "ลากิจ" THEN alltime ELSE 0 END) AS vacation2 '),
+    DB::raw('sum(CASE WHEN vacation = "อื่นๆ" THEN alltime ELSE 0 END) AS vacation3 '),)
+    ->leftjoin('users',"users.id","=","leave.U_id")
+    ->leftjoin('department',"department.id","=","users.department")
+    ->leftjoin('position',"position.id","=","users.position")
+    ->where('leave.id',"=",$id)
+    ->limit(1)
+    ->get();
         foreach($data as $value){
         $users = DB::table('leave')
-        ->select('vacation', DB::raw('sum(alltime) as total'))
-        ->groupBy('vacation')
+        ->select('vacation',  DB::raw('sum(CASE WHEN vacation = "ลาป่วย" THEN alltime ELSE 0 END) AS vacation1 '),
+    DB::raw('sum(CASE WHEN vacation = "ลากิจ" THEN alltime ELSE 0 END) AS vacation2 '),
+    DB::raw('sum(CASE WHEN vacation = "อื่นๆ" THEN alltime ELSE 0 END) AS vacation3 '),)
         ->where([
             ['leave.U_id',"=",$value->U_id],
             ['leave.status',"=",'อนุมัติการลา'],
-                ])
+                ]) 
         ->get();
-       
-        }
-        
+        } 
     return view('admin/forms.formapprove')->with(['data'=>$data,'users'=>$users]);
     }
     public function delete($id)

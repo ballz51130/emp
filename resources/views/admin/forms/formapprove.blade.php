@@ -186,12 +186,12 @@
                                                
                                                 <tr>
                                                     <th scope="row">ลาป่วย</th>
-                                                    <td>@if($c->vacation == 'ลาป่วย') {{$c->total}}  @endif</td>
+                                                    <td>@if($c->vacation == 'ลาป่วย') {{$c->vacation1}}  @endif</td>
                                                     <td> @if($value->vacation == 'ลาป่วย'){{$value->alltime}}   @endif</td>
                                                     <td>@if(($c->vacation == 'ลาป่วย')&&($value->vacation == 'ลาป่วย')) 
-                                                    {{$c->total+$value->alltime}} @else
+                                                    {{$c->vacation1+$value->alltime}} @else
                                                      @if($c->vacation == 'ลาป่วย')
-                                                     {{$c->total}}  
+                                                     {{$c->vacation1}}  
                                                     @endif
                                                     @if($value->vacation == 'ลาป่วย')
                                                     {{$value->alltime}} 
@@ -202,12 +202,12 @@
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">ลากิจ</th>
-                                                    <td>@if($c->vacation == 'ลากิจ') {{$c->total}}  @endif</td>
+                                                    <td>@if($c->vacation == 'ลากิจ') {{$c->vacation2}}  @endif</td>
                                                     <td> @if($value->vacation == 'ลากิจ'){{$value->alltime}}   @endif</td>
                                                     <td>@if(($c->vacation == 'ลากิจ')&&($value->vacation == 'ลากิจ')) 
-                                                    {{$c->total+$value->alltime}}   @else
+                                                    {{$c->vacation2+$value->alltime}}   @else
                                                      @if($c->vacation == 'ลากิจ')
-                                                     {{$c->total}}  
+                                                     {{$c->vacation2}}  
                                                     @endif
                                                     @if($value->vacation == 'ลากิจ')
                                                     {{$value->alltime}} 
@@ -217,12 +217,12 @@
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">อื่นๆ</th>
-                                                    <td>@if($c->vacation == 'อื่นๆ') {{$c->total}}   @endif</td>
+                                                    <td>@if($c->vacation == 'อื่นๆ') {{$c->vacation3}}   @endif</td>
                                                     <td> @if($value->vacation == 'อื่นๆ'){{$value->alltime}}   @endif</td>
                                                     <td>@if(($c->vacation == 'อื่นๆ')&&($value->vacation == 'อื่นๆ')) 
-                                                    {{$c->total+$value->alltime}} @else
+                                                    {{$c->vacation3+$value->alltime}} @else
                                                      @if($c->vacation == 'อื่นๆ')
-                                                     {{$c->total}}  
+                                                     {{$c->vacation3}}  
                                                     @endif
                                                     @if($value->vacation == 'อื่นๆ')
                                                     {{$value->alltime}} 
